@@ -1,0 +1,137 @@
+/* ── Google Fonts ─────────────────────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;1,400&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,600;1,6..72,300;1,6..72,400&family=Cairo:wght@300;400;600&display=swap');
+
+/* ── Design Tokens ────────────────────────────────────────────────────────── */
+:root {
+  --bg:           #0d0d0d;
+  --surface:      #111111;
+  --surface-2:    #161616;
+  --border:       #1e1e1e;
+  --border-hover: #333;
+  --text:         #e8e4dc;
+  --text-2:       #b0aa9e;
+  --muted:        #5a5a5a;
+  --accent:       #c8a96e;
+  --accent-dim:   rgba(200, 169, 110, 0.08);
+  --accent-glow:  rgba(200, 169, 110, 0.15);
+  --green:        #4ade80;
+  --green-dim:    rgba(74, 222, 128, 0.1);
+  --blue:         #74a8ff;
+  --blue-dim:     rgba(116, 168, 255, 0.1);
+
+  --font-serif:   'Newsreader', Georgia, 'Times New Roman', serif;
+  --font-mono:    'IBM Plex Mono', 'Fira Mono', monospace;
+  --font-arabic:  'Cairo', system-ui, sans-serif;
+
+  --radius-sm:    3px;
+  --radius:       6px;
+  --radius-lg:    10px;
+
+  --transition:   0.18s ease;
+  --transition-slow: 0.35s ease;
+}
+
+/* ── Base ─────────────────────────────────────────────────────────────────── */
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-serif);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Typography helpers ───────────────────────────────────────────────────── */
+.font-serif  { font-family: var(--font-serif) !important; }
+.font-mono   { font-family: var(--font-mono) !important; }
+.font-arabic { font-family: var(--font-arabic) !important; direction: rtl; }
+
+/* Display label — e.g. "// about" */
+.label-tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+/* Section heading */
+.heading-display {
+  font-family: var(--font-serif);
+  font-weight: 300;
+  line-height: 1.15;
+}
+
+/* ── Status badges ────────────────────────────────────────────────────────── */
+.badge {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: var(--radius-sm);
+  display: inline-block;
+  white-space: nowrap;
+}
+.badge-live  { background: var(--green-dim);  color: var(--green); border: 1px solid rgba(74,222,128,0.2); }
+.badge-wip   { background: var(--accent-dim); color: var(--accent); border: 1px solid rgba(200,169,110,0.2); }
+.badge-oss   { background: var(--blue-dim);   color: var(--blue);  border: 1px solid rgba(116,168,255,0.2); }
+
+/* ── Scrollbar ────────────────────────────────────────────────────────────── */
+::-webkit-scrollbar       { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border-hover); border-radius: 2px; }
+
+/* ── Selection ────────────────────────────────────────────────────────────── */
+::selection { background: var(--accent-glow); color: var(--text); }
+
+/* ── Focus ring ───────────────────────────────────────────────────────────── */
+:focus-visible { outline: 1px solid var(--accent); outline-offset: 3px; }
+
+/* ── Animated gradient text ───────────────────────────────────────────────── */
+.gradient-text {
+  background: linear-gradient(135deg, var(--accent), #e8c87a, var(--accent));
+  background-size: 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 4s linear infinite;
+}
+@keyframes shimmer {
+  0%   { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
+
+/* ── Pulse dot ────────────────────────────────────────────────────────────── */
+.pulse-dot {
+  display: inline-block;
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--green);
+  animation: pulse-anim 2.5s ease-in-out infinite;
+}
+@keyframes pulse-anim {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.4; transform: scale(0.85); }
+}
+
+/* ── Noise texture overlay ────────────────────────────────────────────────── */
+.noise::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  opacity: 0.025;
+  pointer-events: none;
+  z-index: 9998;
+}
+
+/* ── Horizontal rule ──────────────────────────────────────────────────────── */
+.divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 0;
+}
